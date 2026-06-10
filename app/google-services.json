@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "769928428720",
+    "project_id": "burguerlab-9bb01",
+    "storage_bucket": "burguerlab-9bb01.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769928428720:android:a80908d1d23069309c4f75",
+        "android_client_info": {
+          "package_name": "com.burguerLab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-M4dvAT4gz3bY8E9XpBlCRR3qpkHyv-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769928428720:android:ae567eb45290dd1c9c4f75",
+        "android_client_info": {
+          "package_name": "com.example.burguerlab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-M4dvAT4gz3bY8E9XpBlCRR3qpkHyv-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
