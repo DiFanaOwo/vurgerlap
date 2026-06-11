@@ -21,7 +21,6 @@ import com.example.burguerlab.R
 import com.example.burguerlab.navigation.Routes
 import com.example.burguerlab.ui.theme.BurgerCream
 import com.example.burguerlab.ui.theme.BurgerRed
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
 @Composable
@@ -29,10 +28,7 @@ fun SplashScreen(navController: NavController) {
     // Navegar después de 3 segundos
     LaunchedEffect(Unit) {
         delay(3000)
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val destination = if (currentUser != null) Routes.HOME else Routes.LOGIN
-
-        navController.navigate(destination) {
+        navController.navigate(Routes.HOME) {
             popUpTo(Routes.SPLASH) { inclusive = true }
         }
     }

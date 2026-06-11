@@ -11,6 +11,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import com.google.firebase.auth.FirebaseAuth
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,6 +37,8 @@ fun HomeScreen(navController: NavController) {
         it.nombre.contains(query, ignoreCase = true)
     }
 
+    val currentUser = FirebaseAuth.getInstance().currentUser
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,6 +49,22 @@ fun HomeScreen(navController: NavController) {
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp
                     )
+                },
+                actions = {
+                    IconButton(onClick = {
+                        if (currentUser != null) {
+                            navController.navigate(Routes.PROFILE)
+                        } else {
+                            navController.navigate(Routes.LOGIN)
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.AccountCircle,
+                            contentDescription = "Perfil",
+                            tint = BurgerRed,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
             )
         }

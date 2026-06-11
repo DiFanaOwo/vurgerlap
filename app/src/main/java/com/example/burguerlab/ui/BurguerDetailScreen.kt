@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.example.burguerlab.model.Hamburguesa
 import com.example.burguerlab.ui.theme.BurgerRed  // ← importado desde theme
@@ -134,13 +135,25 @@ fun BurguerDetailScreen(hamburguesaId: String, navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            val authUser = FirebaseAuth.getInstance().currentUser
             Button(
-                onClick = { navController.popBackStack() },
+                onClick = {
+                    if (authUser != null) {
+                        // TODO: lógica real del carrito
+                        navController.popBackStack()
+                    } else {
+                        navController.navigate(com.example.burguerlab.navigation.Routes.LOGIN)
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = BurgerRed),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("Agregar al carrito — ${precioTotal}Bs", color = Color.White, fontSize = 16.sp)
+                Text(
+                    if (authUser != null) "Agregar al carrito — ${precioTotal}Bs" else "Inicia sesión para comprar",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
             }
         }
     }
