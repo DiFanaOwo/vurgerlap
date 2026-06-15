@@ -20,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.example.burguerlab.model.Hamburguesa
 import com.example.burguerlab.ui.theme.BurgerRed  // ← importado desde theme
-
+import com.example.burguerlab.model.CartItem
+import com.example.burguerlab.repository.CartRepository
 val EXTRAS = listOf(
     "Queso extra"    to 2,
     "Tocino"         to 3,
@@ -71,7 +72,11 @@ fun BurguerDetailScreen(hamburguesaId: String, navController: NavController) {
         .filter { (nombre, _) -> extrasState[nombre] == true }
         .sumOf { (_, precio) -> precio }
     val precioTotal = b.precio + precioExtras
-
+    val extrasSeleccionados =
+        extrasState
+            .filter { it.value }
+            .keys
+            .toList()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -139,10 +144,21 @@ fun BurguerDetailScreen(hamburguesaId: String, navController: NavController) {
             Button(
                 onClick = {
                     if (authUser != null) {
-                        // TODO: lógica real del carrito
+
+                        CartRepository.add(
+                            CartItem(
+                                hamburguesa = b,
+                                cantidad = 1,
+                                extras = extrasSeleccionados,
+                                instrucciones = instrucciones,
+                                precioFinal = precioTotal
+                            )
+                        )
                         navController.popBackStack()
                     } else {
-                        navController.navigate(com.example.burguerlab.navigation.Routes.LOGIN)
+                        navController.navigate(
+                            com.example.burguerlab.navigation.Routes.LOGIN
+                        )
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
