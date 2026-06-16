@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -13,6 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.LocalOffer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import com.google.firebase.auth.FirebaseAuth
@@ -51,6 +53,16 @@ fun HomeScreen(navController: NavController) {
                     )
                 },
                 actions = {
+                    // Botón Promociones
+                    IconButton(onClick = { navController.navigate(Routes.PROMOTIONS) }) {
+                        Icon(
+                            imageVector = Icons.Filled.LocalOffer,
+                            contentDescription = "Promociones",
+                            tint = BurgerRed,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                    // Botón Perfil
                     IconButton(onClick = {
                         if (currentUser != null) {
                             navController.navigate(Routes.PROFILE)
@@ -79,6 +91,28 @@ fun HomeScreen(navController: NavController) {
                 shape = RoundedCornerShape(12.dp),
                 singleLine = true
             )
+
+            // Banner promociones
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).height(56.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(containerColor = BurgerRed),
+                onClick = { navController.navigate(Routes.PROMOTIONS) }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("🏷️", fontSize = 22.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("¡Descuentos y combos disponibles!", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    }
+                    Text("Ver →", color = Color.White, fontSize = 13.sp)
+                }
+            }
+            Spacer(modifier = Modifier.height(4.dp))
 
             LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 items(filtradas) { burger ->

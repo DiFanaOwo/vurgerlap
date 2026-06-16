@@ -12,6 +12,7 @@ import com.example.burguerlab.ui.SplashScreen
 import com.example.burguerlab.ui.LoginScreen
 import com.example.burguerlab.ui.RegisterScreen
 import com.example.burguerlab.ui.ProfileScreen
+import com.example.burguerlab.ui.PromotionScreen
 
 // Rutas de navegación como constantes
 object Routes {
@@ -20,7 +21,8 @@ object Routes {
     const val REGISTER = "register"
     const val HOME     = "home"
     const val DETAIL   = "detail/{hamburguesaId}"
-    const val PROFILE  = "profile"
+    const val PROFILE    = "profile"
+    const val PROMOTIONS = "promotions"
 
     // Construye la ruta de detalle con el ID real
     fun detail(id: String) = "detail/$id"
@@ -55,6 +57,11 @@ fun NavGraph() {
         // Pantalla de perfil de usuario
         composable(Routes.PROFILE) {
             ProfileScreen(navController = navController)
+        }
+
+        // Pantalla de promociones
+        composable(Routes.PROMOTIONS) {
+            PromotionScreen(navController = navController)
         }
 
         // Pantalla de detalle — recibe el ID de la hamburguesa seleccionada
