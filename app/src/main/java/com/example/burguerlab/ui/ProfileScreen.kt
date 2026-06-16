@@ -11,6 +11,8 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.ListAlt
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -216,7 +218,54 @@ fun ProfileScreen(navController: NavController) {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Botón para que el cliente vea su historial de pedidos
+                if (email != "admin@burgerlab.com") {
+                    OutlinedButton(
+                        onClick = { navController.navigate(Routes.MY_ORDERS) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .height(52.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF4E342E)),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.LightGray),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Icon(Icons.Filled.ListAlt, contentDescription = null, tint = BurgerRed)
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            "Mis Pedidos",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
+                // Botón para ir al panel de Admin (Solo para personal del restaurante)
+                if (email == "admin@burgerlab.com") {
+                    OutlinedButton(
+                        onClick = { navController.navigate(Routes.ADMIN_ORDERS) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .height(52.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = BurgerRed),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, BurgerRed),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Icon(Icons.Filled.Build, contentDescription = null)
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            "Panel de Pedidos (Admin)",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // Botón cerrar sesión
                 Button(

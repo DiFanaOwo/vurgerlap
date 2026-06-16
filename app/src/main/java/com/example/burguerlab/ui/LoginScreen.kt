@@ -127,8 +127,15 @@ fun LoginScreen(navController: NavController) {
                             auth.signInWithEmailAndPassword(email, password)
                                 .addOnSuccessListener {
                                     isLoading = false
-                                    navController.navigate(Routes.HOME) {
-                                        popUpTo(Routes.LOGIN) { inclusive = true }
+                                    // Redirección según el correo
+                                    if (email == "admin@burgerlab.com") {
+                                        navController.navigate(Routes.ADMIN_ORDERS) {
+                                            popUpTo(Routes.LOGIN) { inclusive = true }
+                                        }
+                                    } else {
+                                        navController.navigate(Routes.HOME) {
+                                            popUpTo(Routes.LOGIN) { inclusive = true }
+                                        }
                                     }
                                 }
                                 .addOnFailureListener {

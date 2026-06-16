@@ -12,15 +12,20 @@ import com.example.burguerlab.ui.SplashScreen
 import com.example.burguerlab.ui.LoginScreen
 import com.example.burguerlab.ui.RegisterScreen
 import com.example.burguerlab.ui.ProfileScreen
-
+import com.example.burguerlab.ui.CartScreen
+import com.example.burguerlab.ui.ConfirmOrderScreen
 // Rutas de navegación como constantes
 object Routes {
-    const val SPLASH   = "splash"
-    const val LOGIN    = "login"
+    const val SPLASH = "splash"
+    const val LOGIN = "login"
     const val REGISTER = "register"
-    const val HOME     = "home"
-    const val DETAIL   = "detail/{hamburguesaId}"
-    const val PROFILE  = "profile"
+    const val HOME = "home"
+    const val DETAIL = "detail/{hamburguesaId}"
+    const val PROFILE = "profile"
+
+    const val CART = "cart"
+
+    const val CONFIRM_ORDER = "confirm_order"
 
     // Construye la ruta de detalle con el ID real
     fun detail(id: String) = "detail/$id"
@@ -64,6 +69,13 @@ fun NavGraph() {
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("hamburguesaId") ?: ""
             BurguerDetailScreen(hamburguesaId = id, navController = navController)
+        }
+        composable(Routes.CART) {
+            CartScreen(navController)
+        }
+
+        composable(Routes.CONFIRM_ORDER) {
+            ConfirmOrderScreen(navController)
         }
     }
 }
